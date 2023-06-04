@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from './styles/theme';
 import './styles/global.css';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -15,3 +16,6 @@ root.render(
     </ThemeProvider>
   </React.StrictMode>
 );
+
+
+serviceWorkerRegistration.register();

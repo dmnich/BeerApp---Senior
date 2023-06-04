@@ -1,5 +1,8 @@
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getCurrentBeerName } from '../../indexDB';
 
 interface Props {
   drawerWidth: number;
@@ -7,6 +10,20 @@ interface Props {
 }
 
 const TopBar = (props: Props) => {
+  const location = useLocation();
+  const [title, setTitle] = useState('')
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setTitle('Home');
+    } else if (location.pathname === '/beer') {
+      setTitle('Beer List');
+    } else if (location.pathname.includes('/beer/')) {
+      getCurrentBeerName(setTitle);
+    } else {
+      setTitle('');
+    }
+  }, [location])
+
   return (
     <AppBar
       position="fixed"
@@ -26,11 +43,11 @@ const TopBar = (props: Props) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
-          V
+          {title}
         </Typography>
       </Toolbar>
     </AppBar>
-    );
-  }
+  );
+}
 
 export default TopBar;
